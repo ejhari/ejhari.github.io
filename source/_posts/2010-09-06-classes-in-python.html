@@ -1,0 +1,14 @@
+---
+layout: post
+title: Classes in Python
+date: '2010-09-06T02:08:00.003+05:30'
+author: Hari John Kuriakose
+tags:
+- python
+- computing
+modified_time: '2010-11-25T21:59:23.703+05:30'
+blogger_id: tag:blogger.com,1999:blog-3368921059404601044.post-5079080600882195063
+blogger_orig_url: http://harijohnkuriakose.blogspot.com/2010/09/classes-in-python.html
+---
+
+In Python, "<b>classes are objects too"</b>. Let me clarify.<br /><br />Let me define a sample class.<br /><i>&gt;&gt;&gt; class abc: pass</i><br /><i>&gt;&gt;&gt; abc</i><br /><i>&lt;class__main__.abc at 0xb76e341c&gt;</i><br />It indicates that in Python, classes are not abstract!<br />They too take memory space.<br /><i><br /></i><br />Lets explore further.<br /><i>&gt;&gt;&gt; m = abc</i><br /><i>&gt;&gt;&gt; m</i><br /><i>&lt;class__main__.abc at 0xb76e341c&gt;</i><br /><i>&gt;&gt;&gt; m = abc( )</i><br /><i>&gt;&gt;&gt; m</i><br /><i>&lt;__main__.abc instance at 0xb76e298c&gt;</i><br />i.e, in Python, <b>both classes and their objects are concrete</b>.<br /><br />Now,<br /><i>&gt;&gt;&gt; abc.p = 10</i><br /><i>&gt;&gt;&gt; abc.p</i><br /><i>10</i><br />Classes can act as objects, as already told above!<br /><i><br /></i><br />Still further,<br /><i>&gt;&gt;&gt; m = abc()</i><br /><i>&gt;&gt;&gt; m.p</i><br /><i>10</i><br /><i>&gt;&gt;&gt; m.q = 20</i><br /><i>&gt;&gt;&gt; abc.q</i><br /><i>20</i><br />What exactly happened here?<br /><i><br /></i><br /><u>Things to understand:</u><br /><u></u>1. Here, "."<i>&nbsp;<span class="Apple-style-span" style="font-style: normal;">works as&nbsp;a search operator&nbsp;</span></i><br /><i><span class="Apple-style-span" style="font-style: normal;">2. On querying </span>m.p, </i>first checks if there's a <i>p</i>&nbsp;attribute in <i>m</i><br />3. If not, automatically finds out type of <i>m</i>, then searches for <i>p</i>&nbsp;there.<br />4. The <i>p</i>&nbsp;attribute here, actually belongs to <i>abc, </i>not <i>m.</i>

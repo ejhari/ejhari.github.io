@@ -1,0 +1,14 @@
+---
+layout: post
+title: ! '"Pointers" in Python'
+date: '2010-08-30T08:49:00.004+05:30'
+author: Hari John Kuriakose
+tags:
+- python
+- computing
+modified_time: '2010-11-25T22:01:56.185+05:30'
+blogger_id: tag:blogger.com,1999:blog-3368921059404601044.post-8049037156072315521
+blogger_orig_url: http://harijohnkuriakose.blogspot.com/2010/08/pointers-in-python.html
+---
+
+Firstly, I want you to understand that, the term "pointers" used here, is a<br />misnomer.<br /><br />In Python, there is no particular data type called a pointer; as in C. Even so,<br />some operations that we can perform in Python, are very similar to the<br />structure of a pointer.<br /><br />Ok, I've been bragging till now about pointers, let me tell you what it is.<br /><br />Visualize that, a new data type that you create has to be stored in a memory location in the hard disk. This memory location, has an address.<br /><b>In C, a pointer can be defined whose value is such a memory&nbsp;</b><br /><b>address. Any valid operation done on this pointer, will be&nbsp;</b><br /><b>automatically reflected in the data present in that address.&nbsp;</b> <br /><br />Now lets see, where this happens in Python.<br /><br />Lets create a list and&nbsp; copy it.<br /><i>&gt;&gt;&gt; a = [1,2,3]</i><br /><i>&gt;&gt;&gt;b = a&nbsp;</i><br />Now lets change an element of<i> a.</i><br /><i>&gt;&gt;&gt;a[1] = 10</i><br /><i>&gt;&gt;&gt;a</i><br /><i>[1,10,3]</i><br />Now check the value of <i>b. </i><br /><i>&gt;&gt;&gt;b</i><br /><i>[1,10,3]</i><br /><br />We can see that <i>b</i> has also changed. How did this happen?<i>&nbsp; </i><br /><br />When the list <i>a</i> was created, it<i> </i>was stored in a memory location say <i>2000,&nbsp;</i><br />and the value <i>2000&nbsp; </i>was put in <i>a. </i>When <i>a </i>was assigned to <i>b</i>, it meant that<br />now <i>b </i>too contain the value <i>2000</i>. Then we changed the second element of<br /><i>a</i>, i.e, the data in the address <i>2000. </i>Therefore, now if we print the value of <i>&nbsp;</i><br /><i>a</i> or <i>b, </i>we will only get the changed list, since both<i> a </i>and <i>b</i> are actually<br />"pointers" to the memory address 2<i>000.</i><br /><br /><u><i><b>N. B.</b></i></u><br />1. Be careful with list assignments!<br /><i> </i>2. What I discussed above<i><b>, </b></i>does not hold for slicing operations on a list.<br /><i><b> &nbsp;&nbsp; </b></i>When any list is sliced, first a copy of it is created in another memory<br />&nbsp;&nbsp;&nbsp; location, and then the operations are performed. Thus, the changes won't<br />&nbsp;&nbsp;&nbsp; reflect back in the original list.<i><b> &nbsp;</b> </i>

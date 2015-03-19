@@ -1,0 +1,14 @@
+---
+layout: post
+title: The Shebang Line
+date: '2010-09-04T01:05:00.004+05:30'
+author: Hari John Kuriakose
+tags:
+- python
+- computing
+modified_time: '2010-09-06T01:21:43.845+05:30'
+blogger_id: tag:blogger.com,1999:blog-3368921059404601044.post-6917151863562715139
+blogger_orig_url: http://harijohnkuriakose.blogspot.com/2010/09/shebang-line.html
+---
+
+Well, this was an Easter Egg for me, so I will directly move on to what I<br />mean, without keeping you bewildered.<br /><br />In computing, a shebang refers to the symbol '<b>#!</b>'. If it is used in a script,<br />it must come in the very beginning of the first line itself. Thus, the<br />common term shebang line.<br /><br />The shebang line contains the absolute path of the interpreter binary for<br />the particular script you are running. On running executable script files,<br />the shebang will be automatically looked for and used, resulting in a 'smart<br />script', or so we can say.<br /><br />The shebang line for&nbsp;Python scripts is,<br /><br /><i><b>#! /usr/bin python</b></i> <br /><br />As you might be wondering, this weird name comes from an inexact<br />combination of <b>sharp (#)</b> and <b>bang (!)</b>, which are the Unix names of<br />the two characters. The other names are <b>hashbang</b>, <b>hashpllng</b>, <b>&nbsp;</b><br /><b>poundbang</b>, and <b>crunchbang</b>. Don't ask me... !!!<br /><br />Interestingly, the shebang was <b>introduced by Dennis Ritchie</b> at Bell<br />Laboratories (Edition 8). It was then also added to BSD releases from<br />Berkeley's Computer Science Releases.&nbsp; <br /><br />If the absolute path for the interpreter binary remains the same in all the<br />machines that the script is run, then portability is achieved too.<br /><br /><u>More Easter Eggs:</u><br />1. When portability issues are encountered, the shebang line<br />&nbsp;&nbsp;&nbsp; <i><b>#! /usr/bin/env python</b></i><br /><i><b>&nbsp;&nbsp; </b></i>may provide a solution.<i><b> </b></i><br />2. The shebang actually represents a magic number in the executable<br />&nbsp;&nbsp;&nbsp; file. This magic string is <b>0x23 0x21</b>. Executable files that do not require<br />&nbsp;&nbsp;&nbsp; an interpreter starts with other magic combinations.<br />3. The shebang line for Perl is,<br />&nbsp;&nbsp;&nbsp; <i><b>#! /usr/bin/perl</b></i>

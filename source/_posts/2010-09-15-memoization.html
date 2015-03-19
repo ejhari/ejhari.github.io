@@ -1,0 +1,14 @@
+---
+layout: post
+title: Memoization
+date: '2010-09-15T08:07:00.004+05:30'
+author: Hari John Kuriakose
+tags:
+- python
+- computing
+modified_time: '2010-09-29T14:12:53.808+05:30'
+blogger_id: tag:blogger.com,1999:blog-3368921059404601044.post-7235274952544832266
+blogger_orig_url: http://harijohnkuriakose.blogspot.com/2010/09/memoization.html
+---
+
+Computers are very fast machines. But the computation time<br />also depend on the algorithm we choose. It can happen that<br />if a proper algorithm is not chosen, it may take a very long<br />time for execution.<br /><br />On writing a simple recursive fibonacci generator function for<br />the nth element, <i>fib(n)</i>, we will get fine results, but only for low<br />values of <i>n</i>. This is because <i>fib(n)</i> has exponential complexity.<br />Such functions grow very fast, so fast that even for small<br />values of `n'  (where `n' is the size of the input), our program<br />will take a long  time to finish. <br /><br />Memoization is the process by which we speed up the situation.<br />The underlying principle is to create an associative array, say <i>&nbsp;</i><br /><i>dict</i>, which contain keys = n, and values = <i>fib(n)</i>. Each time a<br /><i>fib(n)</i> is called, the associative array will be checked whether it<br />contain the key 'n'. If yes, just return <i>dict[n]</i>. Otherwise, create<br />a new key: value pair for <i>dict</i>. Thus, the number of recursion will<br />be drastically reduced, with this look-in-the-lookup-table policy.<br /><br />Ofcourse, memoization is an upgrade to time compplexity, but<br />will consume space.<br />The implementation in Python looked like:<br /><br /><i> def memoized_fib(x):<br />if dict.has_key(x):<br />return dict[x]<br />else:<br />dict[x] = fib(x)<br />return dict[x]<br /><br />def fib(n):<br />if n == 0: return 0<br />elif n == 1: return 1<br />else: return memoized_fib(n-2) + memoized_fib(n-1)<br /><br />&nbsp;dict = {0: 0, 1: 1}<br /></i>  <br /><br />In Python, the <b>recursion limit</b> is fixed by the interpreter itself. It can <br />be found in: <br /><i><b>sys.setrecursionlimit(&lt;limit&gt;)</b></i><br /><br />Now, set a very high limit, and run the code. If its high enough, u will <br />deplete the stack memory size (8 MB) of the C backend of your Python <br />virtual machine, leading to a segmentation fault there, which is <br />propagated back to your Python interpreter, <b>crashing Python itself</b>!
