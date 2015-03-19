@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Translating C Constructs to MSP430 Assembly Code - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Function and its ParametersThe sample program is:When a function is called, some housekeeping is normally done which appears as the function's &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/11/25/translating-c-constructs-to-msp430/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Translating C Constructs to MSP430 Assembly Code</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-11-25T21:44:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>9:44 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u>Function and its Parameters</u></b><br /><br />The sample program is:<br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TNKeILjvQOI/AAAAAAAAAVg/yVt5GpIdD0g/s1600/1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="188" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TNKeILjvQOI/AAAAAAAAAVg/yVt5GpIdD0g/s320/1.png" width="320" /></a></td></tr></tbody></table>When a function is called, some housekeeping is normally done which appears as the function&#8217;s <b>prologue</b> in the assembly code (this would not be true if the function is declared with the attribute &#8221;<b>naked</b>&#8221;).<br /><br />The procedure is:<br />1. The current value of r4 (used as <b>frame pointer</b> in MSP430 family) is pushed<br />&nbsp;&nbsp; &nbsp;into&nbsp;the stack. The <b>stack pointer</b> (r1) automatically gets decremented by 2.<br />2. r1 gets decremented again by an offset, thus allocating a stack frame. The<br />&nbsp;&nbsp; &nbsp;offset by which r1 gets decremented depends on the number of local variables <br />&nbsp;&nbsp; &nbsp;in&nbsp;the called function.<br />&nbsp;&nbsp; &nbsp;Here, r1 gets decremented by 4, since there are two local variables for <i>fun()</i>, <i>a</i><br />&nbsp;&nbsp; &nbsp;and <i>b</i>.<br />3. The current value of the stack pointer r1 is copied into r4 (the register r4 thus<br />&nbsp;&nbsp; &nbsp;indicates the frame pointer for the currently executing function).<br />&nbsp;&nbsp; &nbsp;All further manipulations of the local variables will be with reference to the<br />&nbsp;&nbsp; &nbsp;frame pointer r4.<br />4. After the body of the called function is executed, the same offset as above is <br />&nbsp;&nbsp; &nbsp;added back to the stack pointer r1, thus deallocating the stack frame.<br />5. The current value of r1 is popped into r4, thus retrieving the previous stack<br />&nbsp;&nbsp; &nbsp;frame. The stack pointer r1 gets auto-incremented by 2.<br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNKbrn3am5I/AAAAAAAAAVc/5-J_ig58UNg/s1600/2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="207" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNKbrn3am5I/AAAAAAAAAVc/5-J_ig58UNg/s320/2.png" width="320" /></a></div><br />The assembler directives <b>__FrameSize</b> and <b>__FrameOffset</b> gives the size and offset of the frame allocated for the function <i>fun()</i>.<br /><br /><b><u>Pointers</u></b><br /><br />The sample program is:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeRG7OhoI/AAAAAAAAAVk/8yfHLDO4QCo/s1600/41.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="138" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeRG7OhoI/AAAAAAAAAVk/8yfHLDO4QCo/s320/41.png" width="320" /></a></div><br />On generating the corresponding assembly code:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeaChDUbI/AAAAAAAAAVo/g4oHEuzXcHc/s1600/42.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="208" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeaChDUbI/AAAAAAAAAVo/g4oHEuzXcHc/s320/42.png" width="320" /></a></div><br />The code can be traced as follows:<br />1. The number 10 is stored in the memory address which is at &nbsp;an offset of 2 bytes<br />&nbsp;&nbsp; &nbsp;from the location pointed to by the frame pointer r4.<br />2. The memory address of 10, i.e. the value of (r4 + 2), is stored in the memory<br />&nbsp;&nbsp; &nbsp;location pointed to by r4.<br />3. The data in the location pointed to by the register r4 is safely interpreted as<br />&nbsp;&nbsp; &nbsp;another memory address, and the number 20 is stored in this particular address.<br /><br />And you thought &#8220;pointers&#8221; were magic !!!<br /><br /><b><u>Variables</u></b><br /><br />The most simple case would be:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNKeh3jbiLI/AAAAAAAAAVs/hMCt3nU7ky4/s1600/51.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="76" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNKeh3jbiLI/AAAAAAAAAVs/hMCt3nU7ky4/s320/51.png" width="320" /></a></div><br />But on still expecting the prologue and epilogue:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeqpCrXlI/AAAAAAAAAVw/sfoWJwmW4ok/s1600/52.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="139" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKeqpCrXlI/AAAAAAAAAVw/sfoWJwmW4ok/s320/52.png" width="320" /></a></div><br />The number 100 is stored in a memory location addressed with reference to the frame pointer r4.<br />The variable <i>i</i> is local to the function <i>main()</i> so no extra work.<br /><br /><b><u>Static Variables</u></b><br /><br />The demonstration will be like:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNKezN8zsLI/AAAAAAAAAV0/V64Y22rG6LE/s1600/61.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="108" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNKezN8zsLI/AAAAAAAAAV0/V64Y22rG6LE/s320/61.png" width="320" /></a></div><br />Wondering how the assembly code would look like:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKe4liLvAI/AAAAAAAAAV4/-9BBj0o-GlM/s1600/62.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="260" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKe4liLvAI/AAAAAAAAAV4/-9BBj0o-GlM/s320/62.png" width="320" /></a></div><br />The static integer 200 is stored in a similar way as above, but to a different address. Also this address (label i.1194) is located in the <b>.data section</b>, instead of the usual .text section.<br /><br />All global and static variables (which have their lifetime as long as the whole program), are stored in the .data section.<br /><br /><b><u>Pointers to Functions</u></b><br /><br />Considering the sample code:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNKe-mHPZ4I/AAAAAAAAAV8/wq11Y33b8Gg/s1600/71.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="196" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNKe-mHPZ4I/AAAAAAAAAV8/wq11Y33b8Gg/s320/71.png" width="320" /></a></div><br />A simple pointer to a function accepting void and returning void is created. It is assigned the memory address of the function <i>fun()</i>. Then this pointer to a function <i>f</i> is called.<br /><br />Awaiting the assembly code:<br /><div class="separator" style="clear: both; text-align: auto;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKfFHG_PfI/AAAAAAAAAWA/YyBhQKUBZ2Q/s1600/72.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="320" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNKfFHG_PfI/AAAAAAAAAWA/YyBhQKUBZ2Q/s320/72.png" width="272" /></a></div><div class="separator" style="clear: both; text-align: auto;"><br /></div><div class="separator" style="clear: both; text-align: auto;">The pointer <i>f</i> is local to the function <i>main()</i>. Hence, a stack frame of size 2 is allocated, as expected. The value of <i>f</i>, i.e. the memory address of function <i>fun()</i>, is stored in the location pointed to by the frame pointer r4. This address is then simply passed to the <i>call</i> instruction.</div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-11-25T21:44:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>9:44 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/11/25/translating-c-constructs-to-msp430/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/11/25/translating-c-constructs-to-msp430/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/" title="Previous Post: The Arsenal Of An Embedded System Programmer">&laquo; The Arsenal Of An Embedded System Programmer</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

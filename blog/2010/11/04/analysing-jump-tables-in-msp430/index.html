@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Analysing Jump Tables in MSP430 Assembly Code - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Jump TableA jump table is an array of pointers to functions or an array of assembly code jump instructions.&nbsp;In assembling, jump tables are the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/11/04/analysing-jump-tables-in-msp430/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Analysing Jump Tables in MSP430 Assembly Code</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-11-04T16:31:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>4:31 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div><b><u>Jump Table</u></b></div><div><br /></div><div>A jump table is an array of pointers to functions or an array of assembly code jump instructions.&nbsp;</div><div><br /></div><div>In assembling, jump tables are the most efficient method to handle switch statements with a large number of cases. The jump table is created only once and the required field in the table can be accessed simply by indexing.</div><div><br /></div><div>Especially in embedded systems, where there is a heavy constraint in available memory, jump tables can be efficient while consuming lesser memory too.</div><div><br /></div><div><b><u>Sample Program</u></b></div><div><br /></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJCONGzuNI/AAAAAAAAAVA/uqo82UEsxJM/s1600/1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="285" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJCONGzuNI/AAAAAAAAAVA/uqo82UEsxJM/s320/1.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 1. Sample Program</td></tr></tbody></table><div>The switch has only four cases, hence there is no need for a jump table. The cases are implemented simply as:</div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNJKAj7Wa3I/AAAAAAAAAVE/FuavTnI3YJ4/s1600/2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="320" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TNJKAj7Wa3I/AAAAAAAAAVE/FuavTnI3YJ4/s320/2.png" width="254" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 2. The switch implementation without jump table</td></tr></tbody></table><div>The behavior is almost as expected.</div><div>Now, I need a switch with enough cases, to get the attention of the gcc compiler heuristics.</div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJLnwtwmEI/AAAAAAAAAVI/l8PmcyJu8nE/s1600/3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="320" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJLnwtwmEI/AAAAAAAAAVI/l8PmcyJu8nE/s320/3.png" width="273" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 3. More cases for the switch</td></tr></tbody></table><div>I have to check the corresponding assembly code generated for the above program, to be sure.</div><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNJwzBLGzVI/AAAAAAAAAVY/ZBpv1WCRqww/s1600/4.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="250" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TNJwzBLGzVI/AAAAAAAAAVY/ZBpv1WCRqww/s320/4.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 4. Lookup table created - PartI</td></tr></tbody></table></div><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJwxOCFTRI/AAAAAAAAAVU/mhRDcq4gx7I/s1600/5.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="320" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TNJwxOCFTRI/AAAAAAAAAVU/mhRDcq4gx7I/s320/5.png" width="311" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 5. Lookup table created - PartII</td></tr></tbody></table></div><div>&nbsp;It worked, the compiler decided that a jump table is really essential now.<br /><br />The &#8220;mov #1,@r4&#8221; line stores the value of variable &#8220;i&#8221;. There are 8 cases, numbered from 0 to 7. Hence first &#8220;i&#8221;, i.e, @r4 is compared with 8, for obvious reasons.<br /><br /><b><u>Analysing the &#8216;jump table&#8217;</u></b><br /><br />The <b>jump table has been created, starting from the address denoted by the label &#8220;.L11&#8221;</b>.<br /><br />The first entry in the table holds label &#8220;.L3&#8221; which is the starting address &nbsp;of the block of&nbsp;statements under &#8220;case 0:&#8221;.<br />The next entry is &#8220;.L4&#8221;, which is the starting address of the block of statements under &#8220;case 1:&#8221;.<br />And so on &#8230; Till &#8220;case 7:&#8221;.<br />There are <b>8 &#8220;.word&#8221;s in the jump table</b> too. Correct!<br /><br />The line N in the jump table holds the starting address of the block of statements under the corresponding &#8220;case N:&#8221;. In other words, each line is the offset to be added to &#8220;.L11&#8221;, to execute the required case statements.<br /><br /><b><u>Decoding &#8230;</u></b><br /><br />&#8220;r15&#8221; holds the value to be switched.<br /><br />&#8221;<b>rla r15</b>&#8221; rotates left arithmetically the value inside r15, once (multiplication by 2).<br />Remember that even addressing is required for MSP430 family. <br /><br />&#8220;<b>add #.L11,r15</b>&#8221; adds the present value of &#8220;r15&#8221; (similar to offset), with the address of the &nbsp;label &#8220;.L11&#8221; (similar to base address).<br />&#8220;r15&#8221; now contains the address of the line that lies at the given offset from &#8220;.L11&#8221;.<br /><br />After the &#8221;<b>mov @r15,r15</b>&#8221; line, &#8220;r15&#8221; now contains the starting address of a block of statements under the selected &#8220;case&#8221;.<br /><br />&#8221;<b>br r15</b>&#8221; simply branches to the address pointed to by r15.<br /><br />Clean.<br /><br /><b><u>Issues</u></b><br /><ul><li>How can you justify that <b>jump tables are friendly to embedded systems</b>?</li></ul>Its true that a jump table has a particular overhead for itself.<br /><br />Suppose there are a very large number of switch cases. Then, this &#8220;jump to index&#8221; overhead will be much lower than the cost to perform N case comparisons. That is why jump tables are usually preferred.<br /><ul><li><b>Jump tables work only when the case identifiers are consecutive</b>.</li></ul>For example, case 1, case 2, case 3, etc &#8230;<br /><br />In situations where the cases are random and spread over a large range, suitable searching methods are needed. Normally, binary search is used. The correct case can then be selected in 3 or 4 steps without performing N comparisons each time.</div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-11-04T16:31:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>4:31 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/11/04/analysing-jump-tables-in-msp430/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/11/04/analysing-jump-tables-in-msp430/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/11/03/assembling-in-msp430g2231/" title="Previous Post: Assembling in MSP430G2231">&laquo; Assembling in MSP430G2231</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/11/25/arm-cortex-m3/" title="Next Post: The ARM Cortex-M3">The ARM Cortex-M3 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

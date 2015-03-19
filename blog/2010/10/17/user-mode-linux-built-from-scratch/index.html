@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>User Mode Linux Built From Scratch !!! - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Linux From Scratch"Linux From Scratch (LFS) is a project that provides you with step-by-step instructions for building your own custom Linux system, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/10/17/user-mode-linux-built-from-scratch/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">User Mode Linux Built From Scratch !!!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-10-17T08:43:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>8:43 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u>Linux From Scratch</u></b><br /><blockquote>&#8220;Linux From Scratch (LFS) is a project that provides you with step-by-step instructions for building your own custom Linux system, entirely from source code.&#8221;</blockquote>Homepage is : <a href="http://www.linuxfromscratch.org/">http://www.linuxfromscratch.org/</a> .<br /><div><div><br /></div><b><u>Use Mode Linux</u></b><br /><blockquote>&#8220;User-Mode Linux is a safe, secure way of running Linux versions and Linux processes. Run buggy software, experiment with new Linux kernels or distributions, and poke around in the internals of Linux, all without risking your main Linux setup.</blockquote><blockquote>User-Mode Linux gives you a virtual machine that may have more hardware and software virtual resources than your actual, physical computer. Disk storage for the virtual machine is entirely contained inside a single file on your physical machine. You can assign your virtual machine only the hardware access you want it to have. With properly limited access, nothing you do on the virtual machine can change or damage your real computer, or its software.&#8221;</blockquote><div>Homepage is :&nbsp;<a href="http://user-mode-linux.sourceforge.net/">http://user-mode-linux.sourceforge.net/</a>&nbsp;.</div><div><br /><b><u>UML - The kernel on top of a kernel&nbsp;</u></b><br /><br />To get the complete idea, it is true that the UML kernel can be booted and shutdown from your Linux system, just like another application. It will not cause your Linux system to halt in any way.<br /><br />How is the required <b>privilege levels</b> setup for the UML kernel?<br />The privilege levels in a Linux system ranges from 0 (<b>ring 0</b>) to 3 (<b>ring 3</b>). Ring 0 gives you complete power. You can change the contents of any register, do anything. Ring 3 is the user mode. It also has the lowest privilege.<br /><br />This is the same in the UML kernel too.<br /><br /><b>Can a C code get privilege level 0</b>?<br />Yes it can. Through system calls. But it cannot be allowed just like that. Allowing a C code full control will be like allowing viruses to grow in Linux! The C code must be able to make system calls, and simultaneously not be the one who is in possession of the control flow.<br /><br />This is the specific design technique employed in Linux. When a system call occurs in a C code, there will be a switching from ring 0 to ring 3. It will be simultaneously accompanied with transfer of control from the C program to the Linux kernel. No hassle there.<br /><br />Thus, total safety is ensured.<br /><br />How is <b>the UML kernel design</b>ed then?<br />A Linux kernel comprises of two parts:<br />1) the hardware dependent part - specifically, everything inside the &#8217;<b>arch</b>&#8217;<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;folder in the kernel source code.<br />2) others<br /><br />What is done in the UML kernel is that:<br />1) take away all the hardware dependent part of the kernel.<br />2) simply replace it with the system calls of the kernel layer below<br />&nbsp;&nbsp; &nbsp;it (pure C code).<br />&nbsp;&nbsp; &nbsp;(the UML kernel will behave just as an application)<br /><br />Consider a sample executable binary &#8216;a.out&#8217; compiled inside the UML kernel, from a sample file &#8216;a.c&#8217;.<br /><br /><table cellpadding="0" cellspacing="0" class="tr-caption-container" style="float: left; margin-right: 1em; text-align: left;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLpdcbjMslI/AAAAAAAAATA/n2V1nO6Y8B4/s1600/uml.png" imageanchor="1" style="clear: left; margin-bottom: 1em; margin-left: auto; margin-right: auto;"><img border="0" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLpdcbjMslI/AAAAAAAAATA/n2V1nO6Y8B4/s1600/uml.png" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 1. The kernel layers</td></tr></tbody></table><br />a.out makes a system call<br />e.g. read( )<br /><br /><br />replace a.out&#8217;s call with the address of<br />its own&nbsp;read( )<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />The <b>mechanism</b>:<br />The UML kernel uses <b>ptrace( )</b>&nbsp;to freeze &#8216;a.out&#8217;, the moment it invokes a system call. Then, the address of this function call is replaced with a corresponding system call address that is part of the UML kernel itself.<br /><br />Everything works fine, in a cute way.<br /><br /><b><u>Compiling and Booting the UML kernel</u></b><br /><br />While compiling the kernel, just add an extra parameter &#8217;<b>ARCH=um</b>&#8217; to <b>all the steps</b> outlined in the Linux kernel README.<br />After compilation, an executable binary called &#8217;<b>linux</b>&#8217; will be created.<br /><br />Assuming &#8216;linux&#8217; is present in your current directory, to boot into the UML kernel give the command as:<br />&nbsp;&nbsp; &nbsp;<b>./linux ubda=&lt;&nbsp;path of the filesystem &gt;</b><path be="" filesystem="" of="" the="" to="" used=""></path><br /><br />where filesystem can be a physical partition, or one created with the <b>dd</b> and <b>mkfs</b>/<b>mke2fs</b> commands.<br /><br /><b><u>Some Snapshots</u></b><br /><b><u><br /></u></b></div><div><b>&#8216;Make&#8217;ing Glibc&nbsp;</b></div><div><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLna4GEUZrI/AAAAAAAAASc/UBfLNYeaAas/s1600/Screenshot-3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="179" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLna4GEUZrI/AAAAAAAAASc/UBfLNYeaAas/s320/Screenshot-3.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 2. Running &#8216;make&#8217; for glibc</td></tr></tbody></table><b>&nbsp;&#8216;Configure&#8217;ing&nbsp;Bash</b><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbAX7lGeI/AAAAAAAAASg/2E1eF3fsigw/s1600/Screenshot-4.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="179" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbAX7lGeI/AAAAAAAAASg/2E1eF3fsigw/s320/Screenshot-4.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 3. &#8216;Config&#8217;uring Bash</td></tr></tbody></table><b>Linguistic Perl</b>&nbsp;</div><div>&nbsp;&nbsp; &nbsp;The configuration settings for Perl, created by Larry Wall,&nbsp;was the most &#8220;linguistic&#8221; out of these! &nbsp;Some excerpts are:<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLpNhHRqUVI/AAAAAAAAASw/8a9uFFopJXE/s1600/perl1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="40" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLpNhHRqUVI/AAAAAAAAASw/8a9uFFopJXE/s320/perl1.png" width="320" /></a></div><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLpNiRSBdyI/AAAAAAAAAS0/fT7rHS29KNM/s1600/perl3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="34" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLpNiRSBdyI/AAAAAAAAAS0/fT7rHS29KNM/s320/perl3.png" width="320" /></a></div><br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLpNkKvfvKI/AAAAAAAAAS4/Uvux1dY0TtA/s1600/perl2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="38" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLpNkKvfvKI/AAAAAAAAAS4/Uvux1dY0TtA/s320/perl2.png" width="320" /></a></div><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLpNlFuONaI/AAAAAAAAAS8/tNwPzDwjC5s/s1600/perl4.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="19" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLpNlFuONaI/AAAAAAAAAS8/tNwPzDwjC5s/s320/perl4.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 4. Excerpts from the &#8216;configure&#8217; settings for Perl5</td></tr></tbody></table><b></b><br /><b><div style="display: inline !important; font-weight: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px;"><div style="display: inline !important;"><b>Man pages</b><br /><b></b><br /><b><div style="display: inline !important; font-weight: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px;"><div style="display: inline !important;"><b></b><br /><b><div style="display: inline !important; font-weight: normal; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px;"><div style="display: inline !important;"><div style="display: inline !important;"><b>&nbsp;&nbsp; &nbsp;</b>These had a&nbsp;<b>&#8217;</b>make install&#8217; with one of the shortest SBU, and looked a bit of a variety too!</div></div></div></b></div></div></b></div></div></b><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbJ4gRpQI/AAAAAAAAASs/zV-5WWd0CxE/s1600/Screenshot-2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="81" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbJ4gRpQI/AAAAAAAAASs/zV-5WWd0CxE/s320/Screenshot-2.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 5. &#8216;make install&#8217; of man pages</td></tr></tbody></table><b>Bash without name !</b><br />&nbsp;&nbsp; &nbsp;During the process, there is a time when &#8216;chroot&#8217; is used to completely move into the LFS installation and start using the programs already setup inside it. &nbsp;At this point, the Bash will be setup without creating the <b>/etc/passwd</b> file. Now the Bash will say that <i><b>it has no name !</b></i><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbFc85wQI/AAAAAAAAASk/s-h40s5wqNk/s1600/Screenshot.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="115" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLnbFc85wQI/AAAAAAAAASk/s-h40s5wqNk/s320/Screenshot.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 6. Bash without /etc/passwd</td></tr></tbody></table>After the Bash has been recompiled and installed properly with respect to the LFS system, and the /etc/passwd file created, the Bash prompt reverts back to normal.</div><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLnbHhBLSQI/AAAAAAAAASo/pJUGqQ5Mm4o/s1600/Screenshot-1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="50" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLnbHhBLSQI/AAAAAAAAASo/pJUGqQ5Mm4o/s320/Screenshot-1.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 7. Bash after recompiling and creating /etc/passwd</td></tr></tbody></table><b>Booting in &#8230;</b></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLppN43P6YI/AAAAAAAAATQ/XsL1RWCwNOI/s1600/boot2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="162" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLppN43P6YI/AAAAAAAAATQ/XsL1RWCwNOI/s320/boot2.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 8. Booting into the UML kernel</td></tr></tbody></table><div><b>Powering off &#8230;</b></div><div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLplqQmjYOI/AAAAAAAAATI/Ig_fzO0AuQM/s1600/boot3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="162" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLplqQmjYOI/AAAAAAAAATI/Ig_fzO0AuQM/s320/boot3.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 9. Powering off the UML kernel</td></tr></tbody></table></div></div></div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-10-17T08:43:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>8:43 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/10/17/user-mode-linux-built-from-scratch/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/10/17/user-mode-linux-built-from-scratch/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/14/avl-tree/" title="Previous Post: The AVL Tree">&laquo; The AVL Tree</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/19/depicting-function-inlining-by-gcc/" title="Next Post: Depicting Function Inlining by GCC">Depicting Function Inlining by GCC &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

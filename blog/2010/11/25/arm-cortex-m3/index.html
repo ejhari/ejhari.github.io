@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The ARM Cortex-M3 - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="The ARM ArchitectureThe&nbsp;ARM&nbsp;is a&nbsp;32-bit&nbsp;reduced instruction set computer&nbsp;(RISC)&nbsp;instruction set architecture&nbsp;(ISA &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/11/25/arm-cortex-m3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The ARM Cortex-M3</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-11-25T15:57:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>3:57 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u>The ARM Architecture</u></b><br /><br />The&nbsp;<b>ARM</b>&nbsp;is a&nbsp;32-bit&nbsp;reduced instruction set computer&nbsp;(RISC)&nbsp;instruction set architecture&nbsp;(ISA) developed by&nbsp;ARM Holdings. It was known as the&nbsp;<b>Advanced RISC Machine</b>, and before that as the&nbsp;<b>Acorn RISC Machine</b>. The ARM architecture is the most widely used&nbsp;32-bit&nbsp;ISA in terms of numbers produced.&nbsp;They were originally conceived as a processor for desktop personal computers by&nbsp;Acorn Computers, a market now dominated by the&nbsp;x86&nbsp;family used by&nbsp;IBM PC&nbsp;compatible and&nbsp;AppleMacintosh&nbsp;computers.<br /><br /><b><u>The ARM Cortex-M3</u></b><br /><br />The <b>ARM Cortex family</b> is a new generation of processors that has a standard CPU and system architecture. Unlike other ARM CPUs, the Cortex family is a complete processor core in itself.<br /><br />It comes in three series:<br /><b>A series</b>: For high end applications, using complex OS and user<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; applications. It supports ARM, Thumb and &nbsp;Thumb-2<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; instruction sets.<br /><b>R series</b>: They follow more of a RT system profile. They too<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; supports ARM, Thumb and Thumb-2 instruction sets.<br /><b>M series</b>: For microcontroller applications, and other<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cost-sensitive projects. It supports only Thumb-2<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; instruction set.<br /><br />There is a relative <b>performance level</b> for all these devices, ranging from 1-8. The highest level for M series is <b>3</b>.<br /><br />The <b>ARM Cortex-M3</b> provides the entire heart of a microcontroller, including timer, memory map, interrupt system, etc.<br />It has a Harvard Architecture, with about 4 GB total address space.<br /><br /><b><u>Operating Modes</u></b><br /><br />In <b>privileged mode</b>, the CPU has access to the full instruction set.<br />In <b>unprivileged mode</b>, xPSR related functions and access to most registers in the Cortex processor control space are disabled.<br /><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TO4rcFHrTMI/AAAAAAAAAWM/HAOUrHy5XSg/s1600/c3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="119" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TO4rcFHrTMI/AAAAAAAAAWM/HAOUrHy5XSg/s320/c3.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 1. The Cortex-M3 operating modes</td></tr></tbody></table>Both the <b>Thread and Handler modes</b> execute in privileged mode.<br /><br /><b><u>Programmer&#8217;s Model</u></b><br /><br />The Cortex CPU RISC processor has a load/store architecture. To perform data processing operations, operands must be <b>loaded</b> into a central register file, and the data operations are performed on these registers, and the result <b>stored</b> back to memory.<br /><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TO4lO8gbacI/AAAAAAAAAWE/Pewk73ric6A/s1600/c1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="87" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TO4lO8gbacI/AAAAAAAAAWE/Pewk73ric6A/s320/c1.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 2. The load/store architecture of Cortex-M3</td></tr></tbody></table><div><br /></div><div><b><u>Register File</u></b></div><div><br /></div><div>There are <b>sixteen 32-bit registers</b> in the processor register file, with an extra 32-bit&nbsp;<b>xPSR</b> (Program Status Register).</div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TO4ra1zVtGI/AAAAAAAAAWI/APTQ0S1p17c/s1600/c2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="320" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TO4ra1zVtGI/AAAAAAAAAWI/APTQ0S1p17c/s320/c2.png" width="141" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;"><span class="Apple-style-span" style="font-size: small;"><span class="Apple-style-span" style="font-size: small;"><span class="Apple-style-span" style="font-size: 13px;">Fig 3. The Cortex-M3 register file and xPSR</span></span></span></td></tr></tbody></table>The <b>Link Register (LR)</b> stores the return address of each procedure call.<br /><div>There are two stacks, <b>main stack</b> and <b>process stack</b>, to support the two operating modes. Register R15 is the <b>Program Counter (PC)</b>.</div><div><br /></div><div><b><u>Memory Map</u></b></div><div class="separator" style="clear: both; text-align: center;"></div><br />The memory map for the code area, SRAM area, and the peripheral devices are shown below.<br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TO4yNOaSN3I/AAAAAAAAAWU/uyYf_CbGkCM/s1600/c5.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TO4yNOaSN3I/AAAAAAAAAWU/uyYf_CbGkCM/s1600/c5.png" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 4. A portion of the Cortex-M3 memory map</td></tr></tbody></table><br /><div><b><u>Features</u></b></div><div><br /></div><div>1. <b>Unaligned memory access</b> - The Cortex-M3 can make unaligned memory access, which ensures that SRAM is efficiently used.</div><div>2. <b>Bit Banding</b> - By this technique, direct bit manipulation can be performed on sections of peripheral and SRAM memory spaces, without the need for any special instructions (normal bit manipulations require READ, MODIFY, WRITE which is expensive in terms of number of cycles).</div><div>3. <b>Nested Vector Interrupt Controller (NVIC)</b> - It is a standard unit within the Cortex core, thus making the process of porting the code to different microcontrollers easier. It is designed to support nested interrupts and there are 16 levels of priority.&nbsp;</div><div>By the <b>interrupt preemption</b> technique, high priority interrupts can preempt low priority ones. By the <b>tail chaining</b> technique, successive interrupts can be added to the tail queue, thus reducing the latency in handling those interrupts.</div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-11-25T15:57:00+05:30'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>3:57 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/11/25/arm-cortex-m3/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/11/25/arm-cortex-m3/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/11/04/analysing-jump-tables-in-msp430/" title="Previous Post: Analysing Jump Tables in MSP430 Assembly Code">&laquo; Analysing Jump Tables in MSP430 Assembly Code</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/" title="Next Post: The Arsenal Of An Embedded System Programmer">The Arsenal Of An Embedded System Programmer &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

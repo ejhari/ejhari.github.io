@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The AVL Tree - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="BINARY TREEA binary tree is a tree data structure in which each node has atmost two child nodes. The child nodes may contain references to their &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/10/14/avl-tree/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The AVL Tree</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-10-14T16:09:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>4:09 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u>BINARY TREE</u></b><br /><br />A binary tree is a tree data structure in which each node has atmost two child nodes. The child nodes may contain references to their parent nodes. There is a root node, which has atmost two children but no parent.<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLm1PZs75VI/AAAAAAAAARw/tOoYYMGiTsA/s1600/1.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="135" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLm1PZs75VI/AAAAAAAAARw/tOoYYMGiTsA/s320/1.png" width="320" /></a></div><br />According to Graph Theory, a binary tree can be also said to be a connected, acyclic graph data structure, with a maximum degree of three for each vertex.<br /><br /><b><u>TERMS ASSOCIATED WITH A BINARY TREE</u></b><br /><ul><li>The root node of a tree is the node with no parents. There is at most one root node in a rooted tree.</li><li>A node with no children is called leaf node.</li><li>The depth of a node is the length of the path from the node to the root. All nodes at the same depth are said to be in the same level. The root node is at level 0.</li><li>The height of a tree is the length of the path from the node which has the highest depth, to the root node.</li><li>The children of the same parent are called siblings.</li><li>A node is an ancestor of another node, if it comes in the path traced from the other node to the root.</li><li>A node is the descendant of another node, if it is the child of the other node, at some level from it.</li><li>The size of a node is the number of descendants it has including itself.</li></ul><ol><li>A perfect binary tree is a full binary tree in which all leaves are at the same depth or same level. (This is ambiguously also called a complete binary tree.)</li><li>A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.</li><li>A balanced binary tree is where the depth of all the leaves differs by at most 1. This depth is equal to the integer part of <span class="Apple-style-span" style="font-size: x-large;">log</span><span class="Apple-style-span" style="font-size: small;">2</span><span class="Apple-style-span" style="font-size: x-large;">(n)</span> where n is the number of nodes on the balanced tree.</li></ol><b><u>BINARY SEARCH TREE</u></b><br /><br />A binary search tree is a binary tree in which the numerical value of the data field of the left child is lesser than that of the parent, which is in turn lesser than that of the right child. In short,<br /><span class="Apple-tab-span" style="white-space: pre;"> </span>(data of left child) &lt; (data of parent) &lt; (data of right child)<span class="Apple-tab-span" style="white-space: pre;">  </span>[numerical value of data is taken]<br />For example,<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLm2WPg0lWI/AAAAAAAAAR0/tlRZuFYYG8g/s1600/2.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="84" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLm2WPg0lWI/AAAAAAAAAR0/tlRZuFYYG8g/s320/2.png" width="320" /></a></div><span class="Apple-tab-span" style="white-space: pre;"> </span><br />Here, in both the trees, data is input in the same order, i.e, 34, 43, 56, 21. Searching in the binary tree is evidently very easier in the BST, hence the name binary search tree.<br /><br />Each node in a binary search tree can be represented by a structure in C, created with the &#8216;struct&#8217; keyword, typically named &#8216;node&#8217;. In the most simple case, the data field is taken as an integer. There are three pointers associated with each node, whose typical names can be parent, lchild and rchild, of type &#8216;struct node&#8217; itself. These three pointers also make the structure &#8216;node&#8217; a <b>self-referential data structure</b>. Obviously, the parent pointer in the structure representing the root node, will be NULL.<br /><br />The definition for each node will be: <br /><span class="Apple-tab-span" style="white-space: pre;">     </span><b>struct node {</b><br /><span class="Apple-tab-span" style="white-space: pre;"><b>         </b></span><b>int data;</b><br /><span class="Apple-tab-span" style="white-space: pre;"><b>         </b></span><b>struct node *parent;</b><br /><span class="Apple-tab-span" style="white-space: pre;"><b>         </b></span><b>struct node *lchild;</b><br /><span class="Apple-tab-span" style="white-space: pre;"><b>         </b></span><b>struct node *rchild;</b><br /><span class="Apple-tab-span" style="white-space: pre;"><b>     </b></span><b>};</b><br /><br />The names for the fields are self explanatory, and arbitrarily taken.<br />(The &#8216;parent&#8217; pointer points to the parent of a node. It is necessary in an AVL tree only.) <br /><br /><b><u>BASIC FUNCTIONS FOR THE BST</u></b><br /><br />Since the binary search tree is a dynamic data structure, the malloc() and free() C standard library functions are used to allocate memory for new nodes while insertion, and to deallocate memory while deleting nodes, respectively. Only the following basic functions are needed to implement the full functionalities associated with a BST.<br /><br /><b>Constructor</b><span class="Apple-tab-span" style="white-space: pre;">             </span>-&gt; For creating a new node in the BST<br /><b>Insert</b><span class="Apple-tab-span" style="white-space: pre;">                        </span>-&gt; For inserting the new node into the BST and<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setting up the links<br /><b>Traverse Inorder</b><span class="Apple-tab-span" style="white-space: pre;">    </span>-&gt; For inorder traversal through the BST<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (for each&nbsp;node, print <b>LnR</b>)<br /><b>Traverse Preorder</b><span class="Apple-tab-span" style="white-space: pre;">  </span>-&gt; For preorder traversal through the BST<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (for each node, print <b>nLR</b>)<br /><b>Traverse Postorder</b><span class="Apple-tab-span" style="white-space: pre;"> </span>-&gt; For postorder traversal through the BST<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (for each node, print <b>LRn</b>)<br /><b>Find</b><span class="Apple-tab-span" style="white-space: pre;">   </span>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -&gt; For returning the node whose data field is the<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;given numerical value<br /><b>Delete</b><span class="Apple-tab-span" style="white-space: pre;">                        </span>-&gt; For deleting a node from the BST.<br /><span class="Apple-tab-span" style="white-space: pre;">   </span> <br /><span class="Apple-tab-span" style="white-space: pre;"> </span>where &#8217;<b>n</b>&#8217; denotes the current node, &#8217;<b>L</b>&#8217; the left child, and &#8217;<b>R</b>&#8217; the right child. (thanks to Shijith for this one &#8230;)<br /><br /><b>N.B.</b> For deletion, if the node is a leaf, just delete it. Otherwise, if the node<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; has a right child, replace the&nbsp;node with its successor node in the<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; inorder representation of the BST. Else, replace the node with&nbsp;its<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; predecessor in the same inorder representation.<span class="Apple-tab-span" style="white-space: pre;"> </span><br /><br /><b><u>BALANCING A BST</u></b><br /><br />The BST seems efficient in searching for a particular data. But it is not so always. When there are large number of nodes, there is the possibility that a devastating situation, as shown below, may occur.<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLm29J_mhnI/AAAAAAAAAR4/z6H8kXmRgkI/s1600/3.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="110" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLm29J_mhnI/AAAAAAAAAR4/z6H8kXmRgkI/s320/3.png" width="320" /></a></div><br />In the second BST, data was input in the order 21, 20, 34, 37, 43, 56. Hence, the structure. According to the BST terminology, a structure like this is said to be unbalanced.<br /><br /><b>N.B.</b> A BST is said to be balanced, when the depth of any two leaves in<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; the BST differs atmost by 1.&nbsp;Also, a balanced tree will be<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; theoretically more efficient in all&nbsp;situations, while an unbalanced tree<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; will be not.<br /><br />Why is an <b>unbalanced BST</b> inefficient? For mainly two reasons.<br />1) The time complexity for searching some data values becomes much<br />&nbsp;&nbsp; &nbsp;greater than expected.&nbsp;For example, in the first BST, 43 can be found in<br />&nbsp;&nbsp; &nbsp;two steps of traversal. In the second one, it takes an&nbsp;unexpected 4 steps.<br />&nbsp;&nbsp; &nbsp;For very large BSTs, the time&nbsp;complexity increases drastically.<br />2) The lesser the number of levels in the tree, the more efficient the storage.<br />&nbsp;&nbsp; &nbsp;When operations like deletion are performed on large BSTs, there is<br />&nbsp;&nbsp; &nbsp;a high possibility that the&nbsp;actual addresses of the nodes are&nbsp;spread out<br />&nbsp;&nbsp; &nbsp;over a large&nbsp;area of the storage memory (secondary&nbsp;memory).<br /><br />How to <b>balance a BST</b>?<br />There are many techniques available, but in all of them, the simple rule is to keep the difference between the depth of any two leaves atmost 1. The BST can be balanced at a particular point in time as desired, or it can be done while insertion into and deletion from the BST. Such BSTs that do &#8220;balanced&#8221; insertion and &#8220;balanced&#8221; deletion are called <b>self-balancing binary search trees</b>.<br /><br /><b><u>THE AVL TREE</u></b><br /><br />The AVL tree is one of the many kinds of a self-balancing binary search tree. It was invented by <b>G. M. Adelson-Velskii</b> amd <b>E. M. Landis</b>.<br /><br /><b><u>Short Bio of the Inventors</u></b><br /><b>G. M. Adelson-Velskii</b><br />Georgy Maximovich Adelson-Velskii, was born on 8 January, 1922 in Samara, Russia. He is a Soviet mathematician and computer scientist. Along with E.M. Landis, he invented the AVL tree (&#8220;AV&#8221; in &#8220;AVL&#8221; tree stands for Adelson-Velskii) in 1962.<br />In 1965, he headed the development of a computer chess program, which evolved into Kaissa, the first world computer chess champion.<br />He currently resides in Ashdod, Israel.<br /><br /><b>E. M. Landis</b><br />Evgenii Mikhailovich Landis, was born on October 6, 1921, in Kharkiv, Ukrainian SSR, Soviet Union. He was a Soviet mathematician who worked mainly on partial differential equations. &nbsp;He studied and worked at the Moscow State University.<br />With Georgy Adelson-Velsky, he invented the AVL tree datastructure (&#8220;L&#8221; in &#8220;AVL&#8221; stands for Landis).<br />He died in Moscow on December 12, 1997.<br /><br /><b><u>The Technique</u></b><br /><br />The BST can be easily remodelled into an AVL tree by adding some extra functions that perform balanced insertion and balanced deletion. Some other helper functions that perform some trivial tasks are also needed. The balancing is done by a technique called &#8220;rotation&#8221;.<br /><br />What is <b>rotation</b>?<br />It can be best illustrated only pictorially. There are two ways to rotate.<br /><br />i. <b>Right Rotation</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm4DgUw6eI/AAAAAAAAAR8/gI2nhQZV24Y/s1600/4.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="98" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm4DgUw6eI/AAAAAAAAAR8/gI2nhQZV24Y/s320/4.png" width="320" /></a></div><span class="Apple-tab-span" style="white-space: pre;"> </span><br />What happened simply looks as if:<br />1) node 34 was kept fixed as a &#8220;pivot&#8221;.<br />2) 34&#8217;s right child was rotated clockwise about the pivot (node 34 here).<br />3) there is a change in some links of 34 and 43.<br /><br />On generalising,<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLm4UVpy3wI/AAAAAAAAASA/tecz4TPzLfM/s1600/5.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="108" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TLm4UVpy3wI/AAAAAAAAASA/tecz4TPzLfM/s320/5.png" width="320" /></a></div><br />ii.<b>Left Rotation</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm4cvI964I/AAAAAAAAASE/EUkuc4HT2c4/s1600/6.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="102" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm4cvI964I/AAAAAAAAASE/EUkuc4HT2c4/s320/6.png" width="320" /></a></div><br />What happened simply looks as if:<br />1) node 37 was kept fixed as a &#8220;pivot&#8221;.<br />2) 37&#8217;s left child was rotated anti-clockwise about the pivot (node 37 here).<br />3) there is a change in some links of 21 and 37.<br /><br />On generalising,<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLm4mftbpDI/AAAAAAAAASI/doaLwosZrz4/s1600/7.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="100" src="http://3.bp.blogspot.com/_rkBB8V8TgZY/TLm4mftbpDI/AAAAAAAAASI/doaLwosZrz4/s320/7.png" width="320" /></a></div><br /><b>N.B.</b> In both cases, the structure of the original BST will be changed to<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; that after the rotation.&nbsp;The rule for a balanced tree will be obeyed<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; in both the new structures.<br /><br />Above mentioned are the two ways to perform rotation. When and how many times to perform them depend on the actual arrangement of the nodes in the BST. <b>There are four distinguishable imbalance patterns which occur repeatedly in a BST strucuture</b>. These four patterns are recognized by finding out the &#8220;balancing factor&#8221; for each node. According to the balancing factor thus obtained, the proper sequence of rotations can be initiated.<br /><br />What is the <b>balancing factor</b>?<br />For any node in the BST, its balancing factor is given as:<br /><span class="Apple-tab-span" style="white-space: pre;">     </span><b>BF (node) = (height of its left subtree) - (height of its right subtree)</b><br /><br />(It can be taken the other way round too, but appropriate sign changes have to be made in the balancing factor of nodes.) &nbsp; <br /><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLm40h3I3iI/AAAAAAAAASM/ygJ2ptdAVBI/s1600/8.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="159" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TLm40h3I3iI/AAAAAAAAASM/ygJ2ptdAVBI/s320/8.png" width="320" /></a></div><span class="Apple-tab-span" style="white-space: pre;"> </span>BF (node 43) = +2<br /><span class="Apple-tab-span" style="white-space: pre;"> </span>BF (node 34) = +1<br /><span class="Apple-tab-span" style="white-space: pre;"> </span>BF (node 21) = +1<br /><span class="Apple-tab-span" style="white-space: pre;"> </span>BF (node 20) = 0 (leaf)<br /><br />The balancing factor of any node in a balnced BST will be an integer, in the range -1 to +1, including them. If the balancing factor of a node is found to be -2 or +2, it indicates that the BST is unbalanced at that node.<br />Next, the proper imbalance pattern is identified. Once it is done, the appropriate sequence of rotations are performed. &nbsp; <br /><br /><b><u>THE FOUR CASES OF IMBALANCE</u></b><br /><br />For any number of nodes in a BST, only 4 patterns occur repeatedly. They are classified as the four cases according to which different sequences of left or right rotation or both must be performed. The four cases are:<br /><br />&nbsp;&nbsp; &nbsp;<b>LEGEND</b>:<br /><span class="Apple-tab-span"><span class="Apple-style-span" style="white-space: pre;"> <b>1</b>                       - node with BF +2 or -2, indicating need for rotation</span></span><br /><span class="Apple-tab-span" style="white-space: pre;"> </span><b>parent</b>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;- the parent link of node 1<br /><span class="Apple-tab-span" style="white-space: pre;"> </span><b>lroot </b>and<b> rroot</b> - the nodes which get &#8220;rotated&#8221; during each of the left<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; or right&nbsp;rotations respectively<br /><span class="Apple-tab-span" style="white-space: pre;"> </span><b>pivot</b>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - the pivot node in a rotation<br /><div class="separator" style="clear: both; text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm5iwHkSLI/AAAAAAAAASQ/Wg4UXNyXVhs/s1600/9.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="189" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TLm5iwHkSLI/AAAAAAAAASQ/Wg4UXNyXVhs/s320/9.png" width="320" /></a></div><br />From the above figure,<br /><b>LEFT - LEFT CASE</b> : BF of a node is +2, BF of its left child is +1 or 0<br /><b>LEFT - RIGHT CASE</b> : BF of a node is +2, BF of its left child is -1<br /><b>RIGHT - RIGHT CASE</b> : BF of a node is -2, BF of its right child is 0 or -1<br /><b>RIGHT - LEFT CASE</b> : BF of a node is -2, BF of its right child is +1<br /><br />Also,<br /><b>LEFT - LEFT CASE</b> : 1 right rotation<br /><b>LEFT - RIGHT CASE</b> : 1 left rotation, then 1 right rotation<br /><b>RIGHT - RIGHT CASE</b> : 1 left rotation<br /><b>RIGHT - LEFT CASE</b> : 1 right rotation, then 1 left rotation<br /><br /><b><u>AVL-SPECIFIC FUNCTIONS</u></b><br /><br /><b>Balancing Factor</b><span class="Apple-tab-span" style="white-space: pre;"> </span>-&gt; Finds the balancing factor for the given node.<br /><b>Left Rotation</b><span class="Apple-tab-span" style="white-space: pre;">       </span>-&gt; Perform left rotation, given a &#8220;pivot&#8221; and &#8220;lroot&#8221;.<br /><b>Right Rotation</b><span class="Apple-tab-span" style="white-space: pre;">    </span>-&gt; Perform right rotation, given a &#8220;pivot&#8221; and &#8220;rroot&#8221;.<br /><b>Balance</b><span class="Apple-tab-span" style="white-space: pre;">                </span>-&gt; Check balancing factor of given node. If the tree is<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; unbalanced at this node,&nbsp;identify the imbalance<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pattern and perform rotation.<span class="Apple-tab-span" style="white-space: pre;"> </span><br /><b>Balanced Insert</b><span class="Apple-tab-span" style="white-space: pre;">   </span>-&gt; Insert a new node, then travel from its parent to the<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; root, calling Balance() for&nbsp;each node in the path.<br /><b>Balanced Delete</b><span class="Apple-tab-span" style="white-space: pre;">  </span>-&gt; Delete the node, then travel from its parent to the<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; root, calling Balance() for each&nbsp;node in the path.<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If the deleted node was not a leaf, the path starts<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; from the replaced node itself.<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br /><b><u>Special Conditions to be Checked while Retracing in Balanced Deletion</u></b><br /><br />If at some node, its BF is:<br /><b>+1 or -1</b> : it indicates that the height of the subtree has remained unchanged,<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;and retracing can stop.<br /><b>0</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: height of the subtree has decreased by 1, and retracing needs to<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;continue.<br /><b>+2 or -2</b> : needs rotation.<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;If BF of the node after rotation is 0, continue retracing since<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;height of this subtree has again decreased by 1.<br /><div><br /></div><b>N.B.</b>&nbsp;In insertion, if the BF of a node after rotation is 0, it indicates that the<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; height of that subtree has remained unchanged, contrary to the similar<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; situation while deletion.<br /><br /><b><u>CONCLUSION</u></b><br />Once the above extra functions are defined, the BST will be remodelled into an AVL tree.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-10-14T16:09:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>4:09 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/10/14/avl-tree/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/10/14/avl-tree/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/05/howto-smash-your-c-stack-and-learn-more/" title="Previous Post: HOWTO Smash Your C Stack and Learn More !!!">&laquo; HOWTO Smash Your C Stack and Learn More !!!</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/17/user-mode-linux-built-from-scratch/" title="Next Post: User Mode Linux Built From Scratch !!!">User Mode Linux Built From Scratch !!! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

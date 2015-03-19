@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Remote Debugging the MSP-EXP430G2 LaunchPad From TI - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Remote Debugging in GDBThere is an inbuilt ability for gdb to also debug programs that reside in remote machines using a gdb-specific protocol. The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/10/26/remote-debugging-msp-exp430g2-launchpad/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Remote Debugging the MSP-EXP430G2 LaunchPad From TI</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-10-26T17:55:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>5:55 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u>Remote Debugging in GDB</u></b><br /><br /><div>There is an inbuilt ability for gdb to also debug programs that reside in remote machines using a gdb-specific protocol. The remote machine is connected to the host via a serial line, or through a port. This remote connection is called a gdb <b>proxy</b>.<br /><br />While inside gdb, give as:<br />&nbsp;&nbsp; &nbsp;<b>(gdb) target remote localhost:2000</b><br /><br />This would enable gdb to perform all debugging operations on a program connected to the localhost machine through the port 2000.<br /><br />There is a prerequisite that the machine that is to be present in the same port must have set permissions for an external debugger.<br /><br /><b><u>Sample Program</u></b></div><div><b><u><br /></u></b></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TMbCTvv1f9I/AAAAAAAAAUs/kPrwRO6vT2M/s1600/led1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="161" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TMbCTvv1f9I/AAAAAAAAAUs/kPrwRO6vT2M/s320/led1.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 1. Sample program - led1.c</td></tr></tbody></table><div>This sample program named &#8216;led1.c&#8217;, is only used to demonstrate remote debugging.</div><div><br /><b><u>The Preparation</u></b></div><div class="separator" style="clear: both; text-align: auto;"><br /></div><div>Connect the LaunchPad to the system. Now the sample program is cross-compiled, and downloaded into the LaunchPad.<br />For further details, refer:<br /><a href="http://harijohnkuriakose.blogspot.com/2010/10/switching-on-launchpad-leds.html">switching-on-launchpad-leds.html</a><br /><br />For necessary reasons, I am calling the current terminal, &#8221;<b>Terminal1</b>&#8221;.<br /><br />The &#8217;<b>mspdebug</b>&#8217; has a built-in command that enables it to run a GDB remote stub on a specified TCP/IP port. If no port is specified, 2000 is taken as default.<br /><br />Give as:<br />&nbsp;&nbsp; &nbsp;<b>(mspdebug) gdb</b><br /><br />A message will be displayed as:<br />&nbsp;&nbsp; &nbsp;<b>Bound to port 2000. Now waiting for connection&#8230;</b><br /><br />At this time, open another terminal. I&#8217;m calling it &#8221;<b>Terminal2</b>&#8221;.<br />In Terminal2, give as:<br />&nbsp;&nbsp; &nbsp;<b>msp430-gdb -q a.out</b><br /><br />Here, &#8216;a.out&#8217; is the LaunchPad-specific executable binary obtained by cross-compiling the above sample program.<br /><br />Now, connect to the remote machine already waiting in port 2000 as:<br />&nbsp;&nbsp; &nbsp;<b>(gdb) target remote localhost:2000</b><br /><br />An acknowledgement message will be displayed as:<br />&nbsp;&nbsp; &nbsp;<b>Remote debugging using localhost:2000</b><br />&nbsp;&nbsp; &nbsp;<b>0x0000fc00 in _reset_vector__ ()</b><br /><br />If you check back in Terminal1, messages similar to the following will have been displayed:<br />&nbsp;&nbsp; &nbsp;<b>Client connected from 127.0.0.1:47558</b><br />&nbsp;&nbsp; &nbsp;<b>Clearing all breakpoints&#8230;</b><br />&nbsp;&nbsp; &nbsp;<b>Reading 2 bytes from 0xfc00</b><br /><br />The current states of the two terminals is as shown:</div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TMbEVjegF_I/AAAAAAAAAUw/b9gcPoUeKVo/s1600/t1nt2-1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="164" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TMbEVjegF_I/AAAAAAAAAUw/b9gcPoUeKVo/s320/t1nt2-1.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 2. Terminal1 (left side) &nbsp;and Terminal 2 (right side)</td></tr></tbody></table><div>On listing &#8216;led1.c&#8217; in Terminal2, the memory addresses from which the bytes are read will be displayed in Terminal1, simultaneously.</div><div><br /></div><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TMbFfzZmXdI/AAAAAAAAAU0/T6gY7iyHHKw/s1600/t1nt2-2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="165" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TMbFfzZmXdI/AAAAAAAAAU0/T6gY7iyHHKw/s320/t1nt2-2.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 3. Listing the sample program</td></tr></tbody></table><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TMbGr9yUWNI/AAAAAAAAAU4/8RgWZTSv8qU/s1600/t1nt2-3.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" height="166" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TMbGr9yUWNI/AAAAAAAAAU4/8RgWZTSv8qU/s320/t1nt2-3.png" width="320" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Fig 4. Single stepping through runtime libraries</td></tr></tbody></table><div>On further single steps from this point, the runtime libraries through which the control passes until main( ) is reached, can be observed directly !!!<br />Notice that a considerable number of bytes have been read.<br /><br />Now, single step till the instruction &#8216;P1OUT = 0x01&#8217; is reached.&nbsp;</div><div><br /></div><div><b><u>The Action</u></b></div><div><br /></div><div>At this point, the next single step will cause it to execute, which will pass a high voltage (binary 1) to the red led on the LaunchPad, i.e., do it, and see the red LaunchPad led (P1.0) flash bright !!!</div><div><br />On next step, a binary 0 is passed to P1.0, causing it to be off.<br /><br />Single step again, and see the green LaunchPad led (P1.6) flash before your eyes !!!<br /><br />Turn it off too, and keep on single stepping, until you relish the wonderful thing thats happening infront of you &#8230; This is GDB at its best !!!</div><div>At all these points, the memory addresses from which reading takes place are displayed in Terminal1.</div><div><br /><b>N. B.</b>&nbsp;</div><div><ul><li>Properly exit from both mspdebug in Terminal1 and GDB in Terminal2, before disconnecting the LaunchPad from the system.</li><li>Exit from GDB in Terminal2 first, and then mspdebug in Terminal1.</li></ul><b><u></u></b><br /><b><u></u></b><br /><b><u><div><span class="Apple-style-span" style="-webkit-text-decorations-in-effect: none; font-weight: normal;"><b><u><br /></u></b></span></div><div><span class="Apple-style-span" style="-webkit-text-decorations-in-effect: none; font-weight: normal;"><b><u>Addendum</u></b></span></div></u></b><br />It was one of the cutest moments, to actually &#8216;see&#8217; GDB in work.&nbsp;</div><div>I am crazy on LaunchPad !!!&nbsp;</div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-10-26T17:55:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>5:55 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/10/26/remote-debugging-msp-exp430g2-launchpad/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/10/26/remote-debugging-msp-exp430g2-launchpad/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/26/switching-on-launchpad-leds/" title="Previous Post: Switching on the LaunchPad LEDs ...">&laquo; Switching on the LaunchPad LEDs &#8230;</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/11/03/assembling-in-msp430g2231/" title="Next Post: Assembling in MSP430G2231">Assembling in MSP430G2231 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

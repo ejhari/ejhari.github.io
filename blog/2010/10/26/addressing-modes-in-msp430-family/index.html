@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Addressing Modes in the MSP430 Family - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Register Modemov.w R4,R5 ; move (copy) word from R4 to R6It is the fastest, with&nbsp;only 1 machine cycle needed.Any of the 16 registers can be used &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/10/26/addressing-modes-in-msp430-family/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Addressing Modes in the MSP430 Family</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-10-26T07:29:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>7:29 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><b><u></u></b><br /><b><u><div class="separator" style="clear: both; text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TMYq_-qXLsI/AAAAAAAAAUY/7NpULFeHm08/s1600/IMG_7338.JPG" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="240" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TMYq_-qXLsI/AAAAAAAAAUY/7NpULFeHm08/s320/IMG_7338.JPG" width="320" /></a></div><div><b><u><br /></u></b></div><div><b><u><br /></u></b></div><div><span class="Apple-style-span" style="-webkit-text-decorations-in-effect: none; font-weight: normal;"><b><u>Register Mode</u></b></span></div></u></b><br /><br /><b>mov.w</b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>R4,R5</b><span class="Apple-tab-span" style="white-space: pre;"> </span>; move (copy) word from R4 to R6<br /><br />It is the fastest, with&nbsp;only 1 machine cycle needed.<br />Any of the 16 registers can be used as source or destination.<br /><br />Special cases:<br /><ul><li><span class="Apple-tab-span" style="white-space: pre;"> </span>PC - it will be autoincremented before it is used as source</li><li><span class="Apple-tab-span" style="white-space: pre;"> </span>Both PC and SP must be even, because they are always used as words. so &nbsp;LSB discarded if they are used as destination</li><li><span class="Apple-tab-span" style="white-space: pre;"> </span>CG2 - it reads 0 as source</li></ul>for byte operations:<br /><ul><li><span class="Apple-tab-span" style="white-space: pre;"> </span>operand is taken from lower byte only</li><li><span class="Apple-tab-span" style="white-space: pre;"> </span>writing is performed to lower byte only, upper byte is cleared</li></ul>To use the upper byte in a regiser as source, &#8217;<b>swpb</b>&#8217; may be used.<br /><br /><b><u>Indexed Mode</u></b><u>&nbsp;</u><br /><br />Similar to arrays.<br /><br /><b>mov.b </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>3(R5),R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>; load byte from address 3+(R5) into R6<br /><br />Here, base address is 3.<br />Indexing can be used for the source or destination part.<br /><br /><b><u>Symbolic Mode</u></b><u> </u><b><u>(PC Relative)</u></b><br /><br />When PC is used as the base address in the indexed mode, its called symbolic mode by TI. The offset to be added to the PC is given as the constant.<br /><br />mov.w <span class="Apple-tab-span" style="white-space: pre;"> </span>Loop,R6 <span class="Apple-tab-span" style="white-space: pre;"> </span>; load word Loop into R6<br /><br />Assembler replaces this as:<br /><br /><b>mov.w </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b> X(PC),R6 </b><span class="Apple-tab-span" style="white-space: pre;"> </span>;<br /><br />where X = Loop - PC, is the offset in this case. It is caluclated by the assembler, which also performs autoincrementing of PC.<br /><br />In MSP430, absolute addressing can reach all the memory map. The symbolic mode is mainly meant for MSP430X, etc.<br /><br /><b><u>Absolute Mode</u></b><br /><br />This is a special case where the constant in the indexed mode is the absolute address of the data. Since the constant is already the final address, the base must be taken as an address of 0. Usually the SR is selected for this purpose. It behaves as 0 when used as the base, i.e, this is one instance when the SR behaves as a constant generator (CG1).<br /><br />Absolute addressing is shown by the prefix &amp;.<br /><br /><b>mov.b </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>P1IN,R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>; load byte P1IN into R6<br /><br />It is replaced by the assembler as:<br /><br /><b>mov.b </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>P1IN(SR),R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>;<br /><br />P1IN is the offset, and SR behaves as 0.<br /><br /><b><u>SP-Relative</u></b><br /><br />This is not a separate mode in itself. At any time, any value pushed into the stack previously can be accessed, by offseting a suitable amount from the SP. For example:<br /><br /><b>mov.w </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>2(SP),R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>;<br /><br /><b><u>Indirect Register Mode</u></b><br /><br />This is available only for the source. It is indicated by the sign <b>@</b>. It means that the contents of a register is used as the address of the operand, i.e, the register contains a &#8220;pointer&#8221; to the actual operand.<br /><br /><b>mov.w </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>@R5,R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>; load word from address pointed to by R5<br /><br />This is similar to indexed addressing with base address 0. It saves a word of program memory, hence makes it faster.<br /><br />This mode cannot be used for destination. Using indexed addressing instead:<br /><br /><b>mov.w </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>R6,0(R5)</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>; store word from R6 into address 0+(R5)<br /><br />There is a penalty that a word 0 must be stored in the program memory, and fetched. The constant generator cannot be used.<br /><br /><b><u>Indirect Autoincrement Register Mode</u></b><br /><br />This is also available only for the source. It is indicated by a <b>@ in the front, and a + as suffix</b>. Here, the register is used as a pointer as in the indirect register mode. After this, the value in the register is autoincremented by 1 if a byte has been fetched, or by 2 if a word has been fetched.<br /><br /><b>mov.w @R5+, R6</b><br /><br />Since this mode cannot be used for destination, the indexed addressing mode must be used and then explicitly incrementing the value of the register appropriately. Obviously, two instructions would be required.<br /><br /><b>N.B.</b><br /><ul><li>MSP430 only has postincrement addressing.</li><li>In all the addressing modes, all operations on the first address are fully&nbsp;completed before the second address is evaluated.</li></ul><br /><b><u>Immediate Mode</u></b><br /><br />It is a special case of autoincrement addressing that uses program counter PC. For example:<br /><br /><b>mov.w </b><span class="Apple-tab-span" style="white-space: pre;"><b> </b></span><b>@PC+,R6</b> <span class="Apple-tab-span" style="white-space: pre;"> </span>;<br /><br />Here, after the instruction pointed to by PC has been fetched, PC is autoincremented, i.e., PC now points to the next instruction. This particular instruction will be the one copied into R6.</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-10-26T07:29:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>7:29 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/10/26/addressing-modes-in-msp430-family/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/10/26/addressing-modes-in-msp430-family/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/10/26/msp430-central-processing-unit/" title="Previous Post: The MSP430 Central Processing Unit">&laquo; The MSP430 Central Processing Unit</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/10/26/switching-on-launchpad-leds/" title="Next Post: Switching on the LaunchPad LEDs ...">Switching on the LaunchPad LEDs &#8230; &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

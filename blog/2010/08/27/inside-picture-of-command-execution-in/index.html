@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The Inside Picture of a Command Execution in Shell - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="Shell is the basic scripting tool which you will encounter in any Unix system. Writing those handy little scripts are probably the first time when &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/08/27/inside-picture-of-command-execution-in/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Inside Picture of a Command Execution in Shell</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-08-27T02:34:00+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>2:34 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div style="text-align: left;">Shell is the basic scripting tool which you will encounter in any Unix system. Writing those handy little scripts are probably the first time when you got the&nbsp;</div><div style="text-align: left;">feel of an &#8216;advanced user&#8217;. Any real programmer will vouch for that.</div><div style="text-align: left;"><br /></div><div style="text-align: left;">But to be duly noted is the question, &#8220;What actually happens when you drop a command in the shell?&#8221; Here, is the basic idea.</div><div style="text-align: left;"><br /></div><div style="text-align: left;">1. The shell checks whether its a built-in shell command. If so, executes it&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; directly.</div><div style="text-align: left;">&nbsp; &nbsp; e.g. <b><i>cd</i></b>, <b><i>echo</i></b>, &#8230;</div><div style="text-align: left;">2. Now it checks whether the command is aliased. If the alias is obtained&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; to be a built-in shell command, it goes back to step 1. If its an executable</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; binary, voila!</div><div style="text-align: left;">3. Next the shell search in the <b><i>PATH</i></b> environment variable, and nowhere&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; else, for executable binaries with this particular name. If one is found,&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; thats it!&nbsp; &nbsp; </div><div style="text-align: left;">4. If you are here, i must say sorry on behalf of the shell because no such&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; command could be found in the system.</div><div style="text-align: left;"><br /></div><div style="text-align: left;"><u>Tips:</u></div><div style="text-align: left;">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><i>echo $PATH</i>&nbsp;</b></div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; will display the current <b><i>PATH</i></b>. You can add a custom path by using</div><div style="text-align: left;">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><i>PATH=$PATH:<your comes="" custom="" here="" path=""></your></i>&nbsp;</b></div><div style="text-align: left;">*&nbsp; If your custom path is just &#8216;.&#8217;, it means the present working directory&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp; will be added to the <b><i>PATH</i></b>, always. Little tricky, but its worth it.</div><div style="text-align: left;"><br /></div><div style="text-align: left;"><u>N.B.</u></div><div style="text-align: left;">!!&nbsp; Editing the <b><i>PATH</i></b> one time has effect only till you close the particular&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; terminal.</div><div style="text-align: left;">&nbsp; &nbsp; If you want a permanent change, you have to edit, using any text&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; editor, a file called &#8217;<b><i>.bashrc</i></b>&#8217;, present in your home folder. Or you can&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp; find it as,&nbsp;</div><div style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><i>locate .bashrc</i></b></div><div style="text-align: justify;"></div></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-08-27T02:34:00+05:30'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2010</span></span> <span class='time'>2:34 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/08/27/inside-picture-of-command-execution-in/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/08/27/inside-picture-of-command-execution-in/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/08/24/do-you-love-c-enough/" title="Previous Post: Do you love C enough ???">&laquo; Do you love C enough ???</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/08/30/pointers-in-python/" title="Next Post: "Pointers" in Python">&#8220;Pointers&#8221; in Python &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

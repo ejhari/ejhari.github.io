@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python Tutorial, Release 2.7: Abridged (Heavily!) - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="This tutorial is originally written by Guido van Rossum, and edited by FredL. Drake, Jr. . It is an excellent one, excluding some specific portions.I &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ejhari.github.io/blog/2010/09/01/python-tutorial-release-27-abridged/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="ejhari.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Python Tutorial, Release 2.7: Abridged (Heavily!)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2010-09-01T02:03:00+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2010</span></span> <span class='time'>2:03 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content">This tutorial is originally written by Guido van Rossum, and edited by Fred<br />L. Drake, Jr. . It is an excellent one, excluding some specific portions.<br /><br />I felt the urge to keep a record of all the key points regarding Python, that<br />i grasped from this tutorial. So here goes.. <br /><br />1. <u>The Python Interpreter</u><br />&nbsp;&nbsp;&nbsp; <b>Interactive mode</b>: Ctrl + D, primary prompt, secondary prompt<br />&nbsp;&nbsp;&nbsp; <b>Non-interactive mode</b>: &#8216;python&#8217; command, sys.argv[ ]<br />&nbsp; &nbsp; <i>/usr/lib/python2.6 </i>or <i>/usr/lib/python3.1</i> <br />2. <u>Executable Python Script</u><br />&nbsp; &nbsp; <i>#! /usr/bin/ python</i><br /><i>&nbsp; &nbsp; $ chmod +x&nbsp; <scriptname.py></scriptname.py></i><br />3. <u>The&nbsp; Startup File</u><br />&nbsp; &nbsp; PYTHONSTARTUP environment variable<i>&nbsp;</i><br /><i>&nbsp; &nbsp; os.path()</i><i>, os.environ.get(), execfile(), .join()</i><br /><i>&nbsp; &nbsp; sys.ps1, sys.ps2</i><br />4. <u>Basics</u><i>&nbsp;</i><br /><i>&nbsp; &nbsp; #</i><i>, numbers, </i><i>, docstring (&#8220;&#8221;&#8217; or &#8220;&#8221;&#8220;),</i><br /><i>&nbsp;&nbsp;&nbsp; </i><b>sequence data types</b>: <i>str, unicode, list, tuple, buffer, xrange</i><br /><i>&nbsp;&nbsp;&nbsp; string (</i>effects of<i> &#8217; </i>and<i> &#8220;), </i><i>list&nbsp; (</i>don&#8217;t ever forget slicing!)<br />&nbsp;&nbsp;&nbsp; <b>Mechanism of&nbsp; slicing</b>:<br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://4.bp.blogspot.com/_rkBB8V8TgZY/TIBlnlsfSMI/AAAAAAAAAOs/bJtmLzPEW5o/s1600/Screenshot.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://4.bp.blogspot.com/_rkBB8V8TgZY/TIBlnlsfSMI/AAAAAAAAAOs/bJtmLzPEW5o/s320/Screenshot.png" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Courtesy: Python Tutorial, Release 2.7</td></tr></tbody></table><i>&nbsp; &nbsp; </i>be wary of short circuit nature (e.g.<i> and</i>)<br /><i> &nbsp; &nbsp; </i><i>if, elif, else, for <item> <variable> in <range><iterable></iterable></range></variable></item></i><i>,  range, </i><i>break, continue, pass</i><br />5. <u>Functions In Python</u><br />&nbsp; &nbsp; <i>def &lt;function_name&gt;<function_name>(&lt;argument(s)&gt;<arguments>)<function_name>: body</function_name></arguments></function_name></i><br /><i>&nbsp;&nbsp;&nbsp; </i>call by value, first class, scope<br />&nbsp; &nbsp; <b>built-in higher order functions</b>: <i>map</i>, <i>filter</i>, <i>reduce</i>, etc<br />&nbsp; &nbsp; default argument values (evaluated only once!)<br />&nbsp; &nbsp; <b>keyword arguments</b>: <i>function (arg1, *arg2, **arg3)</i><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i>*arg2</i>&nbsp; -&gt; receives a tuple, <i>**arg3</i> -&gt; receives a dictionary<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; positional arguments before keyword arguments<br />&nbsp; &nbsp; <b>unpacking argument lists</b>: *list_object or **dictionary_object<br /><i>&nbsp;&nbsp;&nbsp; lambda</i><br />6. <u>Intermezzo Coding Style</u><br /><i>&nbsp; &nbsp; a, b = 10, 20 </i>is valid (swapping is unimaginably easy!)<i>&nbsp;</i><br /><i>&nbsp; &nbsp; </i>4-space indentation<br /><i> &nbsp; &nbsp; </i>blanklines, comments, docstrings<i>&nbsp;</i><br /><i>&nbsp; &nbsp; </i>spacing: <i>a = f(1, 2) + g(3, 4)&nbsp;</i><br /><i>&nbsp; &nbsp; self </i>as name for first method argument<br /><i>7. </i><u>Functional Programming Tools</u><br />&nbsp; &nbsp; <b>list comprehension</b><i>: &gt;&gt;&gt;</i><i> vec = [2, 4, 6]</i><br /><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt;&gt;&gt; 3*x for x in vec if x &gt; 3 &nbsp;&nbsp;</i><br /><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt;&gt;&gt; [12, 18]</i><br /><i>&nbsp; &nbsp; del </i>(for lists), <i>push(), </i><i>pop() </i>and <i>collections.deque (for strings)</i><br /><i>&nbsp; &nbsp; set </i>(use it to eliminate duplicates on the fly !, thanks to Sumith)<i>&nbsp; </i><br /><i>&nbsp; &nbsp; </i>dictionaries (<i>.append(), .extend(), .keys(), .values(), .items()) &nbsp;</i> <br />8. <u>Modules</u><i><module_name><module_name><module_name><module>&nbsp;</module></module_name></module_name></module_name></i><br /><i><module_name><module_name><module_name><module>&nbsp; &nbsp; import <module_name>&lt;module_name&gt;,&nbsp;</module_name></module></module_name></module_name></module_name></i><br /><i><module_name><module_name><module_name><module><module_name>&nbsp;&nbsp;&nbsp; from &lt;module&gt;<module> import &lt;method&gt;<method></method></module></module_name></module></module_name></module_name></module_name></i><br /><i><module_name><module_name><module_name><module>&nbsp;&nbsp;&nbsp; <method><mod_name><mod_name><item_name><item_name>from &lt;module&gt;<module> import * </module></item_name></item_name></mod_name></mod_name></method></module></module_name></module_name></module_name></i><module_name><module_name><module_name><module><method><mod_name><mod_name><item_name><item_name>(not advised)</item_name></item_name></mod_name></mod_name></method></module></module_name></module_name></module_name><br /><i>&nbsp; &nbsp; </i>the [<i>if__name__ == &#8220;__main__&#8221;:</i>]<i> </i>clause<br />&nbsp;&nbsp;&nbsp; PYTHONPATH, sys.path, dir() function, packages&nbsp; <br />9. <u>Input and Output</u><br />&nbsp;&nbsp;&nbsp; regular expressions (regex)<i> </i><br /><i>&nbsp;&nbsp;&nbsp; sys.stdin(), sys.stdout()</i><br /><i>&nbsp; &nbsp; repr(), str(), str.format()</i><br /><i>&nbsp;&nbsp;&nbsp; open(), close(), read(), readline(), readlines(), seek(), write()</i><br /><i>&nbsp; &nbsp; </i><b>pickling</b>: <i>pickle.dump(), pickle.load()&nbsp;&nbsp;</i><br /><i>10.</i> <u>Error Handling</u><i> </i><br />&nbsp; &nbsp; <i>try: &#8230; except: &#8230;, try: &#8230; except: &#8230; else: &#8230;, try: except: finally: &#8230;,</i><br /><i>&nbsp; &nbsp; </i><b>try clause: </b>if functions present,<b> </b>tries inside it too<b> </b><br /><b>&nbsp;&nbsp;&nbsp; else clause</b><b>: </b>to prevent except from catching the error caused<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; by some other piece of code<b> </b><br /><b>&nbsp;&nbsp;&nbsp; finally clause: </b>always executed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. on leaving<i> the try: except:,&nbsp;</i><br /><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 2. </i>when error raised by <i>try</i>: not handled by any <i>except:</i><br /><i> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 3. </i>when there is an error in the <i>except:</i> itself<i>&nbsp; &nbsp;</i> &nbsp; &nbsp; <br />&nbsp;&nbsp;&nbsp; <i>class MyClass (Exception): pass</i><br /><i>&nbsp;&nbsp;&nbsp; raise Exception (arguments)</i><br /><i>&nbsp;&nbsp;&nbsp; except Exception as inst: </i>(arguments stored in <i>instance.args</i>),<br /><i> &nbsp; &nbsp; with open (&#8217;<filename><filename>&#8217;,&#8217;<mode>&#8217;) as <handle_name></handle_name></mode></filename></filename></i><i>:</i><br /><i>11. </i><u>Classes</u><br />&nbsp; &nbsp;&nbsp; <i>class <class_name>&lt;class_name&gt;[(&lt;baseclass(es)&gt;<baseclass_name>)<class_name>]:pass</class_name></baseclass_name></class_name></i><br />&nbsp;&nbsp; &nbsp; Python classes are objects<br /><i> &nbsp; &nbsp;&nbsp; </i>both class and its objects<i> </i>are concrete<br />&nbsp;&nbsp;&nbsp;&nbsp; no sense in concept of &#8216;declaration&#8217;<br />&nbsp;&nbsp;&nbsp;&nbsp; each function attribute has at least one argument named &#8217;<i>self&#8217;</i><br /><i>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; </i>by convention<i>&nbsp;</i><br /><i> </i>&nbsp;&nbsp;&nbsp;&nbsp; <i>__init__, __str__, __eq__, __iter__</i><br />&nbsp; &nbsp;&nbsp; <i>isinstance()</i><br /><i>12. </i><u>Mechanism of <i>for</i></u><br /><i>&nbsp;&nbsp;&nbsp;&nbsp; </i>this idea can be applied to any iterable in Python<br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://2.bp.blogspot.com/_rkBB8V8TgZY/TIBnVECr_gI/AAAAAAAAAO0/HevA-2OFFgE/s1600/Screenshot-1.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://2.bp.blogspot.com/_rkBB8V8TgZY/TIBnVECr_gI/AAAAAAAAAO0/HevA-2OFFgE/s320/Screenshot-1.png" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Courtesy: Python Tutorial, Release 2.7</td></tr></tbody></table><br />13. <u>Concept of Generators</u><br />&nbsp; &nbsp;&nbsp; <i>yield -&gt; return, </i>THEN FREEZE THEN AND THERE UNTIL <i>next()</i><br /><table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="http://1.bp.blogspot.com/_rkBB8V8TgZY/TIBoXGjWt9I/AAAAAAAAAO8/IvHLf4FhJ_o/s1600/Screenshot-2.png" imageanchor="1" style="margin-left: auto; margin-right: auto;"><img border="0" src="http://1.bp.blogspot.com/_rkBB8V8TgZY/TIBoXGjWt9I/AAAAAAAAAO8/IvHLf4FhJ_o/s320/Screenshot-2.png" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Courtesy: Python Tutorial, Release 2.7</td></tr></tbody></table><i>&nbsp;&nbsp;&nbsp;&nbsp; </i>&#8220;genex&#8221; -&gt; generator expression<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (e.g. generator in a list comprehension.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; then replace [] with ())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &gt;&gt;&gt; sum(i * i for i in range(0, 10))<br /><u><br /></u></div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hari John Kuriakose</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2010-09-01T02:03:00+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>1</span><span class='date-suffix'>st</span>, <span class='date-year'>2010</span></span> <span class='time'>2:03 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ejhari.github.io/blog/2010/09/01/python-tutorial-release-27-abridged/" data-via="" data-counturl="http://ejhari.github.io/blog/2010/09/01/python-tutorial-release-27-abridged/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/08/30/pointers-in-python/" title="Previous Post: "Pointers" in Python">&laquo; &#8220;Pointers&#8221; in Python</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2010/09/04/shebang-line/" title="Next Post: The Shebang Line">The Shebang Line &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/translating-c-constructs-to-msp430/">Translating C Constructs to MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arsenal-of-embedded-system-programmer/">The Arsenal of an Embedded System Programmer</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/25/arm-cortex-m3/">The ARM Cortex-M3</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/04/analysing-jump-tables-in-msp430/">Analysing Jump Tables in MSP430 Assembly Code</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2010/11/03/assembling-in-msp430g2231/">Assembling in MSP430G2231</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
